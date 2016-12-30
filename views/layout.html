@@ -6,23 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- basic styles -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
-
-    <!--[if IE 7]>
-    <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
-    <![endif]-->
     <!-- page specific plugin styles -->
-    <!-- fonts -->
-    <!-- ace styles -->
-    <link rel="stylesheet" href="assets/css/ace.min.css" />
-    <link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
-    <link rel="stylesheet" href="assets/css/ace-skins.min.css" />
-    <!--[if lte IE 8]>
-    <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-    <![endif]-->
-    <!-- inline styles related to this page -->
-    <!-- ace settings handler -->
-    <script src="assets/js/ace-extra.min.js"></script>
+
+    <link href="stylesheets/style.css" rel="stylesheet">
+    <link href="stylesheets/style-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheets/toastr.min.css"/>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="assets/js/html5shiv.js"></script>
@@ -30,342 +18,174 @@
     <![endif]-->
 </head>
 
-<body>
-<div class="navbar navbar-default" id="navbar">
-    <script type="text/javascript">
-        try{ace.settings.check('navbar' , 'fixed')}catch(e){}
-    </script>
+<body class="sticky-header theme-blue">
 
-    <div class="navbar-container" id="navbar-container">
-        <div class="navbar-header pull-left">
-            <a href="#" class="navbar-brand">
-                <small>
-                    <i class="icon-leaf"></i>
-                    统一前置管理后台
-                </small>
-            </a><!-- /.brand -->
-        </div><!-- /.navbar-header -->
+<section>
+    <!-- left side start-->
+    <div class="left-side sticky-left-side">
 
-        <div class="navbar-header pull-right" role="navigation">
-            <ul class="nav ace-nav">
-                <li class="green">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <i class="icon-envelope icon-animated-vertical"></i>
-                        <span class="badge badge-success">5</span>
-                    </a>
-
-                    <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-                        <li class="dropdown-header">
-                            <i class="icon-envelope-alt"></i>
-                            5条消息
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <img src="assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												不知道写啥 ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>1分钟以前</span>
-											</span>
-										</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <img src="assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												不知道翻译...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20分钟以前</span>
-											</span>
-										</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <img src="assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												到底是不是英文 ...
-											</span>
-
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>下午3:15</span>
-											</span>
-										</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="inbox.html">
-                                查看所有消息
-                                <i class="icon-arrow-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="light-blue">
-                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="assets/avatars/avatar.png" alt="Admin's Photo" />
-								<span class="user-info">
-									<small>欢迎光临,</small>
-									Admin
-								</span>
-
-                        <i class="icon-caret-down"></i>
-                    </a>
-
-                    <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                        <li>
-                            <a href="#">
-                                <i class="icon-cog"></i>
-                                修改密码
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <i class="icon-user"></i>
-                                个人资料
-                            </a>
-                        </li>
-
-                        <li class="divider"></li>
-
-                        <li>
-                            <a href="#">
-                                <i class="icon-off"></i>
-                                退出
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul><!-- /.ace-nav -->
-        </div><!-- /.navbar-header -->
-    </div><!-- /.container -->
-</div>
-
-<div class="main-container" id="main-container">
-    <script type="text/javascript">
-        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-    </script>
-
-    <div class="main-container-inner">
-        <a class="menu-toggler" id="menu-toggler" href="#">
-            <span class="menu-text"></span>
-        </a>
-
-        <div class="sidebar" id="sidebar">
-            <script type="text/javascript">
-                try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
-            </script>
-
-            <div class="sidebar-shortcuts" id="sidebar-shortcuts">
-                <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-                    <button class="btn btn-success">
-                        <i class="icon-signal"></i>
-                    </button>
-
-                    <button class="btn btn-info">
-                        <i class="icon-pencil"></i>
-                    </button>
-
-                    <button class="btn btn-danger">
-                        <i class="icon-group"></i>
-                    </button>
-
-                    <button class="btn btn-warning">
-                        <i class="icon-cogs"></i>
-                    </button>
-                </div>
-
-                <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-                    <span class="btn green"></span>
-
-                    <span class="btn blue"></span>
-
-                    <span class="btn btn-warning"></span>
-
-                    <span class="btn btn-danger"></span>
-                </div>
-            </div><!-- #sidebar-shortcuts -->
-
-            <ul class="nav nav-list">
-                <li class="active">
-                    <a href="portbinds.html">
-                        <i class="icon-cogs"></i>
-                        <span class="menu-text"> 端口绑定 </span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="typography.html">
-                        <i class="icon-text-width"></i>
-                        <span class="menu-text"> 文字排版 </span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#" class="dropdown-toggle">
-                        <i class="icon-desktop"></i>
-                        <span class="menu-text"> UI 组件 </span>
-
-                        <b class="arrow icon-angle-down"></b>
-                    </a>
-
-                    <ul class="submenu">
-                        <li>
-                            <a href="elements.html">
-                                <i class="icon-double-angle-right"></i>
-                                组件
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-            </ul><!-- /.nav-list -->
-
-            <div class="sidebar-collapse" id="sidebar-collapse">
-                <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
-            </div>
-
-            <script type="text/javascript">
-                try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-            </script>
+        <!--logo and iconic logo start-->
+        <div class="logo theme-blue">
+            <a href="/"><i class="fa fa-laptop"></i>前置管理</a>
         </div>
 
-        {% block content %}{% endblock %}
+        <div class="logo-icon text-center">
+            <a href="/"><i class="fa fa-laptop"></i></a>
+        </div>
+        <!--logo and iconic logo end-->
 
-    </div><!-- /.main-container-inner -->
+        <div class="left-side-inner">
+            <!--sidebar nav start-->
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li class="active theme-blue"><a href="/"><i class="fa fa-home"></i> <span>欢迎</span></a></li>
+                <li class="menu-list"><a href=""><i class="fa fa-bold"></i> <span>基础数据维护</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="dbset"><i class="fa fa-chain"></i>数据库连接</a></li>
+                        <li><a href="tranway"><i class="fa fa-fighter-jet"></i>通讯方式</a></li>
+                        <li><a href="msgfmt"><i class="fa fa-th-list"></i>报文格式</a></li>
+                        <li><a href="logcfg"><i class="fa fa-file-text-o"></i>日志配置</a></li>
 
-    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-        <i class="icon-double-angle-up icon-only bigger-110"></i>
-    </a>
-</div><!-- /.main-container -->
+                    </ul>
+                </li>
 
-<!-- basic scripts -->
+                <li><a href="fontawesome.html"><i class="fa fa-sitemap"></i> <span>端口绑定</span></a></li>
 
-<!--[if !IE]> -->
 
+
+            </ul>
+            <!--sidebar nav end-->
+            <ul class="nav nav-pills nav-stacked custom-nav logout">
+                <li><a href="#"><i class="fa fa-power-off"></i> 退出</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- left side end-->
+
+    <!-- main content start-->
+    <div class="main-content" >
+
+        <!-- header section start-->
+        <div class="header-section">
+
+            <!--toggle button start-->
+            <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+            <!--toggle button end-->
+
+            <!--search start-->
+            <!--search end-->
+
+            <!--notification menu start -->
+            <div class="menu-right">
+                <ul class="notification-menu">
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="badge">4</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-head pull-right">
+                            <h5 class="title">Notifications</h5>
+                            <ul class="dropdown-list normal-list">
+                                <li class="new">
+                                    <a href="">
+                                        <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                                        <span class="name">Server #1 overloaded.  </span>
+                                        <em class="small">34 mins</em>
+                                    </a>
+                                </li>
+                                <li class="new"><a href="">See All Notifications</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <img src="images/user.png" alt="" />
+                            Admin
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right theme-blue">
+                            <li><a href="#"><i class="fa fa-user"></i>  个人资料</a></li>
+                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#pwd_dialog"><i class="fa fa-cog"></i>  修改密码</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!--notification menu end -->
+
+        </div>
+        <!-- header section end-->
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+            {% block content %}{% endblock %}
+        </div>
+        <!--body wrapper end-->
+
+        <!--footer section start-->
+        <footer>
+            2016 &copy; 统一前置后台管理 by <a href="#" target="_blank">chiron</a>
+        </footer>
+        <!--footer section end-->
+
+    </div>
+    <!-- main content end-->
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="pwd_dialog" tabindex="-1" role="dialog" aria-labelledby="pwd_dialog_title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="pwd_dialog_title">修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="pwd_dialog_form">
+                    <div class="form-group">
+                        <label for="old_pwd">当 前 密 码</label>
+                        <input type="password" class="form-control" id="old_pwd" name="old_pwd">
+                    </div>
+                    <div class="form-group">
+                        <label for="new_pwd">新   密   码</label>
+                        <input type="password" class="form-control" id="new_pwd" name="new_pwd">
+                    </div>
+                    <div class="form-group">
+                        <label for="new_pwd1">新密码确认</label>
+                        <input type="password" class="form-control" id="new_pwd1" name="new_pwd1">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-info" onclick="change_click();">保存</button>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Placed js at the end of the document so the pages load faster -->
 <script src="assets/js/jquery.min.js"></script>
-
-<!-- <![endif]-->
-
-<!--[if IE]>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<![endif]-->
-
-<!--[if !IE]> -->
-
-<script type="text/javascript">
-    window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"script>");
-</script>
-
-<!-- <![endif]-->
-
-<!--[if IE]>
-<script type="text/javascript">
-    window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
-</script>
-<![endif]-->
-
-<script type="text/javascript">
-    if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"script>");
-</script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/typeahead-bs2.min.js"></script>
-
-<!-- page specific plugin scripts -->
-
-<!--[if lte IE 8]>
-<script src="assets/js/excanvas.min.js"></script>
-<![endif]-->
-
 <script src="assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
-<script src="assets/js/jquery.slimscroll.min.js"></script>
-<script src="assets/js/jquery.easy-pie-chart.min.js"></script>
-<script src="assets/js/jquery.sparkline.min.js"></script>
-<script src="assets/js/flot/jquery.flot.min.js"></script>
-<script src="assets/js/flot/jquery.flot.pie.min.js"></script>
-<script src="assets/js/flot/jquery.flot.resize.min.js"></script>
-
-<!-- ace scripts -->
-
-<script src="assets/js/ace-elements.min.js"></script>
-<script src="assets/js/ace.min.js"></script>
-
-<!-- inline scripts related to this page -->
-
-<script type="text/javascript">
-    jQuery(function($) {
-        $('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-        function tooltip_placement(context, source) {
-            var $source = $(source);
-            var $parent = $source.closest('.tab-content')
-            var off1 = $parent.offset();
-            var w1 = $parent.width();
-
-            var off2 = $source.offset();
-            var w2 = $source.width();
-
-            if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
-            return 'left';
-        }
-
-
-        $('.dialogs,.comments').slimScroll({
-            height: '300px'
+<script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/modernizr.min.js"></script>
+<script src="assets/js/jquery.nicescroll.js"></script>
+<script src="assets/js/jquery.stepy.js"></script>
+<!--common scripts for all pages-->
+<script src="javascripts/index.js"></script>
+<script type="text/javascript" src="javascripts/toastr.min.js"></script>
+<script>
+    $(function() {
+        $('#default').stepy({
+            backLabel: '上一步',
+            block: true,
+            nextLabel: '下一步',
+            titleClick: true,
+            titleTarget: '.stepy-tab'
         });
-
-
-        //Android's default browser somehow is confused when tapping on label which will lead to dragging the task
-        //so disable dragging when clicking on label
-        var agent = navigator.userAgent.toLowerCase();
-        if("ontouchstart" in document && /applewebkit/.test(agent) && /android/.test(agent))
-            $('#tasks').on('touchstart', function(e){
-                var li = $(e.target).closest('#tasks li');
-                if(li.length == 0)return;
-                var label = li.find('label.inline').get(0);
-                if(label == e.target || $.contains(label, e.target)) e.stopImmediatePropagation() ;
-            });
-
-        $('#tasks').sortable({
-                    opacity:0.8,
-                    revert:true,
-                    forceHelperSize:true,
-                    placeholder: 'draggable-placeholder',
-                    forcePlaceholderSize:true,
-                    tolerance:'pointer',
-                    stop: function( event, ui ) {//just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved
-                        $(ui.item).css('z-index', 'auto');
-                    }
-                }
-        );
-        $('#tasks').disableSelection();
-        $('#tasks input:checkbox').removeAttr('checked').on('click', function(){
-            if(this.checked) $(this).closest('li').addClass('selected');
-            else $(this).closest('li').removeClass('selected');
-        });
-
-
-    })
+    });
 </script>
 </body>
 </html>

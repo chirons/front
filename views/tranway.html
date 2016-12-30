@@ -1,0 +1,101 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row">
+    <section class="panel">
+        <div class="panel-heading">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="icon-home home-icon"></i>
+                    <a href="/">首页</a>
+                </li>
+                <li class="active">通讯方式</li>
+            </ul><!-- .breadcrumb -->
+        </div>
+        <div class="panel-body">
+            <div class="btn-group btn-group-justified">
+                <a class="btn btn-info" href="javascript:void(0);" data-toggle="modal" data-target="#addway_dialog">添加</a>
+            </div>
+
+            {% for way in ways %}
+            <div class="col-lg-5 col-sm-9 waylist">
+                <span class="wayname">{{ way.name}}</span>
+                <span class="waydesc">{{ way.desc }}</span>
+                <a class="delway" href="javascript:void(0);" onclick="delway_click('{{ way.name}}');">删除</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addway_dialog" tabindex="-1" role="dialog" aria-labelledby="addway_dialog_title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="addway_dialog_title">添加通讯方式</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="addway_dialog_form" method="post" action="/tranway/add">
+                    <div class="form-group">
+                        <label for="wayname">通讯方式</label>
+                        <input type="text" class="form-control" id="wayname" name="wayname">
+                    </div>
+                    <div class="form-group">
+                        <label for="waydesc">方式描述</label>
+                        <textarea class="form-control" id="waydesc" name="waydesc" rows="6"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-info pull-right"  onclick="addway_click();">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+    function delway_click(wayname)
+    {
+        $.ajax({
+            url : '/tranway/del',
+            type: "POST",
+            data : {wayname:wayname},
+            success: function(respTxt)
+            {
+                if(respTxt.success)
+                {
+                    toastr.success(respTxt.success);
+                }
+                else
+                {
+                    toastr.error(respTxt.error);
+                }
+            }
+        });
+    }
+    function addway_click()
+    {
+        $.ajax({
+            url : '/tranway/add',
+            type: "POST",
+            data : {wayname:$('#wayname').val(),waydesc:$('#waydesc').val()},
+            success: function(respTxt)
+            {
+                if(respTxt.success)
+                {
+                    $('#addway_dialog').modal('hide');
+                    toastr.success(respTxt.success);
+                    $('#addway_dialog_form')[0].reset();
+                }
+                else
+                {
+                    toastr.error(respTxt.error);
+                }
+            }
+        });
+    }
+</script>
+{% endblock %}

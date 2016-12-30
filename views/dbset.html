@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row">
+    <section class="panel">
+        <div class="panel-heading">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="icon-home home-icon"></i>
+                    <a href="/">首页</a>
+                </li>
+                <li class="active">数据库连接</li>
+            </ul><!-- .breadcrumb -->
+        </div>
+        <div class="panel-body">
+            {% if success %}
+                <div class="alert alert-success"><div>{{ success }}</div></div>
+            {% endif %}
+            {% if error %}
+            <div class="alert alert-error"><div>{{ error }}</div></div>
+            {% endif %}
+
+            <form class="form-horizontal" role="form" action="/dbset" method="post">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">数据库类型</label>
+                    <div class="col-lg-10">
+                        <select class="form-control" name="dbtype" placeholder="请选择">
+                            <option value="mongodb">Mongodb</option>
+                            <option value="mysql">MySQL</option>
+                            <option value="oracle">Oracle</option>
+                            <option value="db2">DB2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">是否&nbsp;加密</label>
+                    <div class="col-lg-10">
+                        <select class="form-control" name="isencrypt" placeholder="请选择">
+                            <option value="1">是</option>
+                            <option value="0">否</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">加密字符串</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="encryptstr" class="form-control" placeholder="encrypt string">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">数据库(URL)</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="dburl" class="form-control" placeholder="mongodb://localhost:27017/front">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">用&nbsp;户&nbsp;名</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="dbuser" class="form-control" placeholder="张三">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">密&nbsp;&nbsp;&nbsp;码</label>
+                    <div class="col-lg-10">
+                        <input type="password" name="dbpwd" class="form-control" placeholder="密码">
+                    </div>
+                </div>
+                <input type="submit" class="finish btn btn-warning" value="Finish">
+            </form>
+        </div>
+    </section>
+</div>
+{% endblock %}
