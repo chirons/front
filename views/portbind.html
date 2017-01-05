@@ -1,5 +1,10 @@
 {% extends 'layout.html' %}
 
+
+{% block mycss %}
+<link href="assets/css/jquery.steps.css" rel="stylesheet" />
+{% endblock %}
+
 {% block content %}
 <div id="toolbar" class="btn-group">
     <button id="btn_add" type="button" class="btn btn-primary" onclick="show_add_bind()"><i class="fa fa-plus"></i>&nbsp;新增</button>
@@ -18,15 +23,23 @@
                 <h4 class="modal-title" id="binds_dialog_title">新增/修改端口绑定</h4>
             </div>
             <div class="modal-body">
-                <form role="form" class="form-horizontal" id="binds_dialog_form" method="post" action="/portbind/save">
+                <form id="binds_dialog_form" method="post" action="/portbind/save" class="wizard-big">
+                    <h1>选择通讯方式</h1>
                     <fieldset>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="saveway">保存方式</label>
-                            <select name="saveway" id="saveway" disabled>
-                                <option value="1">新增</option>
-                                <option value="2">修改</option>
+                        <label class="col-sm-2 control-label" for="tranway">通讯方式</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="tranway" id="tranway">
+                                <option value="1">Socket</option>
+                                <option value="2">Ftp</option>
+                                <option value="3">MQ</option>
+                                <option value="4">WebService</option>
+                                <option value="5">http</option>
+                                <option value="6">https</option>
                             </select>
                         </div>
+                    </fieldset>
+                    <h1>Socket通讯</h1>
+                    <fieldset>
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="lisport">监听端口</label>
                             <div class="col-sm-4">
@@ -38,27 +51,29 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="serverip">服务地址</label>
+                            <label class="col-sm-2 control-label" for="socketip">服务地址</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="serverip" name="serverip">
+                                <input type="text" class="form-control" id="socketip" name="socketip">
                             </div>
-                            <label class="col-sm-2 control-label" for="serverport">服务端口</label>
+                            <label class="col-sm-2 control-label" for="socketport">服务端口</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="serverport" name="serverport">
+                                <input type="text" class="form-control" id="socketport" name="socketport">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <h1>Ftp通讯</h1>
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ftpip">服务地址</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="ftpip" name="ftpip">
+                            </div>
+                            <label class="col-sm-2 control-label" for="ftpport">服务端口</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="ftpport" name="ftpport">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="msgfmt">报文格式</label>
-                            <div class="col-sm-4">
-                                <select class="form-control" name="msgfmt" id="msgfmt">
-                                    <option value="1">XML</option>
-                                    <option value="2">定长报文</option>
-                                    <option value="3">分隔报文</option>
-                                    <option value="4">8583报文</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group hidden" id="ftp_cfg_div">
                             <label class="col-sm-2 control-label" for="ftpuser">用户名</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" id="ftpuser" name="ftpuser">
@@ -68,8 +83,81 @@
                                 <input type="text" class="form-control" id="ftppwd" name="ftppwd">
                             </div>
                         </div>
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">取消</button>
-                        <button type="submit" class="btn btn-info pull-right">保存</button>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="ftpdir">目录</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="ftpdir" name="ftpdir">
+                            </div>
+                            <label class="col-sm-2 control-label" for="ftpfname">文件名</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="ftpfname" name="ftpfname">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <h1>WebService</h1>
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="wsuri">服务地址</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="wsuri" name="wsuri">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <h1>MQ通讯</h1>
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="mqip">服务地址</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="mqip" name="mqip">
+                            </div>
+                            <label class="col-sm-2 control-label" for="mqport">服务端口</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="mqport" name="mqport">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="mqmgr">队列管理器</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="mqmgr" name="mqmgr">
+                            </div>
+                            <label class="col-sm-2 control-label" for="mqchlname">通道名称</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="mqchlname" name="mqchlname">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="mqccsid">字符集</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="mqccsid" name="mqccsid">
+                            </div>
+                            <label class="col-sm-2 control-label" for="mqsendquenue">发送队列名称</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="mqsendquenue" name="mqsendquenue">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="mqrevquenue">接受队列名称</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="mqrevquenue" name="mqrevquenue">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <h1>Http通讯</h1>
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="httpip">服务地址</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="httpip" name="httpip">
+                            </div>
+                            <label class="col-sm-2 control-label" for="httpport">服务端口</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="httpport" name="httpport">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <h1>完成</h1>
+                    <fieldset>
+                        <h2>恭喜您完成设置，请完成提交</h2>
                     </fieldset>
                 </form>
             </div>
@@ -79,17 +167,86 @@
 {% endblock %}
 
 {% block myscript %}
+<script src="assets/js/jquery.steps.min.js"></script>
+<script src="assets/js/jquery.validate.min.js"></script>
+<script src="assets/js/messages_zh.min.js"></script>
 <script type="text/javascript">
     $(function () {
         var bt = new table_init();
 
         bt.init();
+
+        $("#binds_dialog_form").steps({
+            bodyTag: "fieldset",
+            onStepChanging: function (event, currentIndex, newIndex) {
+                // Always allow going backward even if the current step contains invalid fields!
+                if (currentIndex > newIndex) {
+                    return true;
+                }
+
+                // Forbid suppressing "Warning" step if the user is to young
+                if (newIndex === 3 && Number($("#age").val()) < 18) {
+                    return false;
+                }
+
+                var form = $(this);
+
+                // Clean up if user went backward before
+                if (currentIndex < newIndex) {
+                    // To remove error styles
+                    $(".body:eq(" + newIndex + ") label.error", form).remove();
+                    $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                }
+
+                // Disable validation on fields that are disabled or hidden.
+                form.validate().settings.ignore = ":disabled,:hidden";
+
+                // Start validation; Prevent going forward if false
+                return form.valid();
+            },
+            onStepChanged: function (event, currentIndex, priorIndex) {
+                // Suppress (skip) "Warning" step if the user is old enough.
+                if (currentIndex === 2 && Number($("#age").val()) >= 18) {
+                    $(this).steps("next");
+                }
+
+                // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                if (currentIndex === 2 && priorIndex === 3) {
+                    $(this).steps("previous");
+                }
+            },
+            onFinishing: function (event, currentIndex) {
+                var form = $(this);
+
+                // Disable validation on fields that are disabled.
+                // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                form.validate().settings.ignore = ":disabled";
+
+                // Start validation; Prevent form submission if false
+                return form.valid();
+            },
+            onFinished: function (event, currentIndex) {
+                var form = $(this);
+
+                // Submit form input
+                form.submit();
+            }
+        }).validate({
+            errorPlacement: function (error, element) {
+                element.before(error);
+            },
+            rules: {
+                confirm: {
+                    equalTo: "#password"
+                }
+            }
+        });
     });
 
-    
+
     var table_init = function () {
         var o_table = new Object();
-        
+
         o_table.init = function () {
             $('#bind_table').bootstrapTable({
                 url : '/portbind/page',
@@ -188,8 +345,8 @@
 
     function show_add_bind()
     {
-        $('#binds_dialog_form')[0].reset();
-        $('#binds_dialog_form').saveway = 1;
+        //$('#binds_dialog_form')[0].reset();
+        //$('#binds_dialog_form').saveway = 1;
         $('#binds_dialog').modal('show');
     }
 
