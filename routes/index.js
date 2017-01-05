@@ -5,6 +5,7 @@ var fs = require('fs');
 var path = require('path');
 var propertiesparser = require('properties-parser');
 var BaseCfgModel = require('../model/basecfg');
+var binds = require('../model/binds');
 
 
 log4js.configure("./log4js.json");
@@ -141,6 +142,89 @@ router.get('/logcfg', function(req, res, next){
     var logcfg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'log4js.json')));
 
     return res.render('logcfg', {title: '日志配置'});
+});
+
+router.get('/portbind', function(req, res, next){
+    return res.render('portbind', {title: '端口绑定!!!'});
+});
+
+router.post('/portbind/page', function(req, res, next){
+    var offset = req.body.offset;
+    var pagesize = req.body.pagesize;
+
+    var query = binds.find({});
+    query.limit(pagesize);
+    query.skip(offset);
+    query.exec(function(err, querylist){
+        if(err)
+        {
+            res.send({error : '获取端口绑定信息失败:[' + err + '].'});
+        }
+        else
+        {
+            binds.find({}, function(err, totallist){
+                var re = {rows : querylist, total : totallist.length};
+                res.json(re);
+            });
+        }
+    });
+});
+
+router.post('/portbind/save', function(req, res, next){
+    var saveway = req.body.offset;
+    var lisport = req.body.lisport;
+    var servername = req.body.servername;
+    var serverip = req.body.serverip;
+    var serverport = req.body.serverport;
+    var tranway = req.body.tranway;
+    var msgfmt = req.body.msgfmt;
+
+    if(saveway == 2)
+    {
+        binds.remove({lisport : lisport}, function(err, result){
+            if(err)
+            {
+                res.send({error : '监听端口[' + lisport + ']保存失败: [' + err + ']'});
+            }
+        });
+    }
+
+    var bind = new binds({
+        lisport : lisport,
+        servername : servername,
+        serverip : serverip,
+        serverport : serverport,
+        tranway : tranway,
+        msgfmt : msgfmt
+    });
+
+    bind.save(function(err, result){
+        if(err)
+        {
+            res.send({error : '保存监听端口失败: [' + err + ']'});
+        }
+        else
+        {
+            res.redirect('/portbind');
+        }
+    });
+});
+
+router.post('/portbind/del', function(req, res, next){
+    var conditions = {
+        lisport : req.body.lisport
+    };
+
+    binds.remove(conditions, function(err, result){
+        if(err)
+        {
+            res.send({error : '绑定端口[' + req.body.lisport + ']删除失败: [' + err + ']'});
+        }
+        else
+        {
+            res.send({success : '绑定端口删除成功.'});
+        }
+    });
 });
 
 module.exports = router;

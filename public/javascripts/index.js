@@ -14,8 +14,6 @@
         $(".left-side").getNiceScroll().hide();
     }
 
-
-
     // Toggle Left Menu
    jQuery('.menu-list > a').click(function() {
       
@@ -157,8 +155,6 @@
         $(this).parents(".panel").parent().remove();
     });
 
-
-
     // tool tips
 
     $('.tooltips').tooltip();
@@ -166,12 +162,5 @@
     // popovers
 
     $('.popovers').popover();
-
-
-
-
-
-
-
 
 })(jQuery);

@@ -1,0 +1,225 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div id="toolbar" class="btn-group">
+    <button id="btn_add" type="button" class="btn btn-primary" onclick="show_add_bind()"><i class="fa fa-plus"></i>&nbsp;新增</button>
+    <button id="btn_edit" type="button" class="btn btn-warning" onclick="show_edit_bind()"><i class="fa fa-pencil"></i>&nbsp;修改</button>
+    <button id="btn_del" type="button" class="btn btn-danger" onclick="del_bind()"><i class="fa fa-trash-o"></i>&nbsp;删除</button>
+</div>
+<table id="bind_table">
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="binds_dialog" tabindex="-1" role="dialog" aria-labelledby="binds_dialog_title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="binds_dialog_title">新增/修改端口绑定</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-horizontal" id="binds_dialog_form" method="post" action="/portbind/save">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="saveway">保存方式</label>
+                            <select name="saveway" id="saveway" disabled>
+                                <option value="1">新增</option>
+                                <option value="2">修改</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="lisport">监听端口</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="lisport" name="lisport">
+                            </div>
+                            <label class="col-sm-2 control-label" for="servername">服务名称</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="servername" name="servername">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="serverip">服务地址</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="serverip" name="serverip">
+                            </div>
+                            <label class="col-sm-2 control-label" for="serverport">服务端口</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="serverport" name="serverport">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="msgfmt">报文格式</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="msgfmt" id="msgfmt">
+                                    <option value="1">XML</option>
+                                    <option value="2">定长报文</option>
+                                    <option value="3">分隔报文</option>
+                                    <option value="4">8583报文</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group hidden" id="ftp_cfg_div">
+                            <label class="col-sm-2 control-label" for="ftpuser">用户名</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="ftpuser" name="ftpuser">
+                            </div>
+                            <label class="col-sm-2 control-label" for="ftppwd">密码</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="ftppwd" name="ftppwd">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-info pull-right">保存</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endblock %}
+
+{% block myscript %}
+<script type="text/javascript">
+    $(function () {
+        var bt = new table_init();
+
+        bt.init();
+    });
+
+    
+    var table_init = function () {
+        var o_table = new Object();
+        
+        o_table.init = function () {
+            $('#bind_table').bootstrapTable({
+                url : '/portbind/page',
+                method : 'post',
+                toolbar : '#toolbar',
+                striped : true,
+                cache : false,
+                pagination : true,
+                sortable : false,
+                queryParams : o_table.queryParams,
+                sidePagination : "server",
+                pageNumber : 1,
+                pageSize : 15,
+                pageList : [15, 20, 25, 50, 100],
+                search : false,
+                strictSearch : true,
+                showColumns : true,
+                showRefresh : true,
+                mininumCountColumns : 2,
+                clickToSelect : true,
+                height : 680,
+                uniqueId : "ID",
+                showToggle : true,
+                cardView : false,
+                detailView : false,
+                columns : [{
+                    checkbox : true
+                },{
+                    field : '_id',
+                    title : "ID",
+                    visible : false,
+                    align : 'center',
+                    halign : 'center'
+                },{
+                    field : 'lisport',
+                    title : "<i class='fa fa-bolt'></i>&nbsp;监听端口",
+                    align : 'center',
+                    halign : 'center'
+                },{
+                    field : 'servername',
+                    title : "<i class='fa fa-beer'></i>&nbsp;服务名称",
+                    halign : 'center'
+                },{
+                    field : 'serverip',
+                    title : "<i class='fa fa-location-arrow'></i>&nbsp;服务地址",
+                    align : 'center',
+                    halign : 'center'
+                },{
+                    field : 'serverport',
+                    title : "<i class='fa fa-bolt'></i>&nbsp;服务端口",
+                    halign : 'center'
+                },{
+                    field : 'tranway',
+                    title : "<i class='fa fa-fighter-jet'></i>&nbsp;通讯方式",
+                    halign : 'center'
+                },{
+                    field : 'msgfmt',
+                    title : "<i class='fa fa-th-list'></i>&nbsp;报文格式",
+                    halign : 'center'
+                }]
+            });
+        }
+
+        o_table.queryParams = function(params)
+        {
+            return {
+                pagesize : params.limit,
+                offset : params.offset
+            };
+        }
+
+        return o_table;
+    }
+
+    function show_edit_bind()
+    {
+        var sels = $('#bind_table').bootstrapTable('getSelections');
+        if($.isArray(sels) && sels.length > 0)
+        {
+            var sel = sels[0];
+            $('#saveway').val(2);
+            $('#lisport').val(sel['lisport']);
+            $('#servername').val(sel['servername']);
+            $('#serverip').val(sel['serverip']);
+            $('#serverport').val(sel['serverport']);
+            $('#tranway').val(sel['tranway']);
+            $('#msgfmt').val(sel['msgfmt']);
+
+            $('#binds_dialog').modal('show');
+        }
+        else
+        {
+            toastr.error("请先选择一条绑定关系进行修改");
+        }
+    }
+
+    function show_add_bind()
+    {
+        $('#binds_dialog_form')[0].reset();
+        $('#binds_dialog_form').saveway = 1;
+        $('#binds_dialog').modal('show');
+    }
+
+    function del_bind()
+    {
+        var sels = $('#bind_table').bootstrapTable('getSelections');
+        if($.isArray(sels) && sels.length > 0)
+        {
+            var sel = sels[0];
+            $.ajax({
+                url : '/portbind/del',
+                type: "POST",
+                data : {lisport:sel['lisport']},
+                success: function(respTxt)
+                {
+                    if(respTxt.success)
+                    {
+                        toastr.success(respTxt.success);
+                    }
+                    else
+                    {
+                        toastr.error(respTxt.error);
+                    }
+                }
+            });
+        }
+        else
+        {
+            toastr.error("请先选择一条端口绑定关系删除");
+        }
+    }
+</script>
+{% endblock %}
